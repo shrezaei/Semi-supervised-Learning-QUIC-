@@ -1,5 +1,5 @@
 # Semi-supervised-Learning-QUIC-
-Implementation of "Do not Afraid of Small Labeled Dataset for Traffic Classification". For more information read the paper.
+Implementation of "[How to Achieve High Classification Accuracy with Just a Few Labels: A Semi-supervised Approach Using Sampled Packets](https://arxiv.org/pdf/1812.09761.pdf)". For more information read the paper.
 ## Prerequisites
 Python 3 and Pytorch
 ## Dataset
