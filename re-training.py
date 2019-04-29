@@ -80,11 +80,11 @@ for foldNumber in range(NumOfCrossValidationFolds):
     print("Dataset loaded!")
 
 
-    # For transfer learning, the parameters have to be fixed!
     encoder = Model.CNNEncoder(hidden_dim, statisticalFeatures)
     #encoder = Model.FCNN(input_size, 10, time_steps)
-
-#    encoder = torch.load('simple-45-22.pth')
+    
+    # Load the pre-trained model here:
+    encoder = torch.load('simple-45-22.pth')
 #    encoder = torch.load('simple-45-10.pth')
 #    encoder = torch.load('simple-75.pth')
 #    encoder = torch.load('incremental-45-22-1.6.pth')
@@ -93,16 +93,18 @@ for foldNumber in range(NumOfCrossValidationFolds):
 #    encoder = torch.load('wit-incremental-CS5-4-8-1.2.pth')
 #    encoder = torch.load('wit-simple-CS5-3-10.pth')
 #    encoder = torch.load('wit-random-CS5-3-0.15.pth')
-    
+
+    # For transfer learning, the convolutional layers can be fixed
     # layers freeze
-#    ct = 0
-#    for child in encoder.children():
-#        #ct<1: fix only cnnseq part, not regressor
-#        #ct<2: fix cnnseq and regressor
-#        if ct <-1:
-#            for param in child.parameters():
-#                param.requires_grad = False
-#        ct += 1
+    ct = 0
+    for child in encoder.children():
+        #ct<-1: re-train all layers
+        #ct<1: fix only cnnseq part, not regressor
+        #ct<2: fix cnnseq and regressor
+        if ct <-1:
+            for param in child.parameters():
+                param.requires_grad = False
+        ct += 1
 
     #
     encoder.reggresor = nn.Sequential(
